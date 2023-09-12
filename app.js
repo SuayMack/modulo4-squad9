@@ -1,4 +1,5 @@
-import express from 'express'
+import express from 'express';
+import Usuarios from './src/controllers/UsuariosController.js';
 
 /**
  * instância do Express
@@ -17,3 +18,5 @@ app.listen(port, () => {
 //*midware* usar sempre depois da const app e antes das rotas
 // Usar depois do POST
 app.use(express.json())
+
+Usuarios.rotas(app)
