@@ -12,7 +12,7 @@ const DATABASE = process.env.DATABASE || "local"
 const PASSWORD = process.env.PASSWORD || "local"
 const CLUSTER = process.env.CLUSTER || "local"
 
-mongoose.connect(`mongodb+srv://${USER_DB}:${PASSWORD}@datadynamo.bzb8gvb.mongodb.net/`)
+mongoose.connect(`mongodb+srv://${USER_DB}:${PASSWORD}@${CLUSTER}.${DATABASE}.mongodb.net/`)
 .then(()=>{
   app.listen(port, () => {
     console.log(`Server is running on port ${port} 🚀✈️`)
