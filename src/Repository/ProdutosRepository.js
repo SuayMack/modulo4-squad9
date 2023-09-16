@@ -12,17 +12,17 @@ class ProdutosRepository {
         return response
     }
 
-    static async buscarprodutoPorId(id){
+    static async buscarProdutoPorId(id){
         const response = await RepositoryGeneral.buscarPorId(Produtos, id)
         return response
     }
 
-    static async atualizaprodutoPorId(id, produto){
+    static async atualizaProdutoPorId(id, produto){
         const response = await RepositoryGeneral.atualizaPorId(Produtos, id, produto)
         return response
     }
 
-    static async deletaprodutoPorId(id){
+    static async deletaProdutoPorId(id){
         const response = await RepositoryGeneral.deletarPorId(Produtos, id)
         return response
     }
