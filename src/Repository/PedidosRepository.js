@@ -33,4 +33,4 @@ class PedidosRepository {
     }
 }
 
-export default PedidosRepository;
+export default PedidosRepository

@@ -1,4 +1,4 @@
-import PedidosRepository from "../Repository/PedidosRepository.js";
+import PedidosRepository from "../Repository/PedidosRepository.js";  
 
 class ValidacoesPedido {
     static validaNome(nome) {
