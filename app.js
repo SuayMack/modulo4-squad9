@@ -1,22 +1,29 @@
-import express from 'express';
-import Usuarios from './src/controllers/UsuariosController.js';
+import express from 'express'
+import mongoose from 'mongoose'
+import { config } from 'dotenv'
+import cors from "cors"
 
-/**
- * instância do Express
- * inicialização do que foi importado
- */
-const app = express()
-/**
- * varável de alocação de porta
- */
-const port = process.env.PORT | 3000
+import ClientesController from './src/controllers/ClientesController.js'
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`)
-})
+config()
 
-//*midware* usar sempre depois da const app e antes das rotas
-// Usar depois do POST
+const app = express();
+
 app.use(express.json())
+app.use(cors("*"))
 
-Usuarios.rotas(app)
+const port = process.env.PORT || 3000
+const USER_DB = process.env.USER_DB || "local"
+const DATABASE = process.env.DATABASE || "local"
+const PASSWORD = process.env.PASSWORD || "local"
+const CLUSTER = process.env.CLUSTER || "local"
+
+mongoose.connect(`mongodb+srv://${USER_DB}:${PASSWORD}@${CLUSTER}.${DATABASE}.mongodb.net/`)
+.then(()=>{
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port} 🚀✈️`)
+  });
+})
+.catch((e)=>console.log(e.message))
+
+ClientesController.rotas(app)
