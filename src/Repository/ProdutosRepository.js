@@ -27,3 +27,5 @@ class ProdutosRepository {
         return response
     }
 }
+
+export default ProdutosRepository;
