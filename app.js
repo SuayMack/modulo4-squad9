@@ -4,6 +4,10 @@ import { config } from 'dotenv'
 import cors from "cors"
 
 import ClientesController from './src/controllers/ClientesController.js'
+import ProdutosController from './src/controllers/ProdutosController.js'
+import PedidosController from './src/controllers/PedidosController.js'
+import ContratoController from './src/controllers/ContratoController.js'
+import FeedbacksController from './src/controllers/FeedbacksController.js'
 
 config()
 
@@ -27,3 +31,7 @@ mongoose.connect(`mongodb+srv://${USER_DB}:${PASSWORD}@${CLUSTER}.${DATABASE}.mo
 .catch((e)=>console.log(e.message))
 
 ClientesController.rotas(app)
+ProdutosController.rotas(app)
+PedidosController.rotas(app)
+ContratoController.rotas(app)
+FeedbacksController.rotas(app)
