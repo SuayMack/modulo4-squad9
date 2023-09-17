@@ -1,3 +1,4 @@
+import PedidosModel from "../models/PedidosModel.js";
 import PedidosRepository from "../Repository/PedidosRepository.js";
 import ValidacoesPedido from "../services/ValidacoesPedidos.js";
 
