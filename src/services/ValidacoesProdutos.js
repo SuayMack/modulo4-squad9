@@ -22,8 +22,8 @@ class ValidacoesProdutos {
   }
   static async validaProduto(nome, descricao) {
     try {
-      ValidacoesCliente.validaNome(nome)
-      ValidacoesCliente.validaDescricao(descricao)
+      ValidacoesProdutos.validaNome(nome)
+      ValidacoesProdutos.validaDescricao(descricao)
     } catch (error) {
       throw error
     }
