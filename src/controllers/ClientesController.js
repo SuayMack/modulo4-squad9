@@ -14,13 +14,6 @@ class ClientesController {
      * volta para o cliente, respectivamente.
      */
     static rotas(app) {
-        /**
-        * Rota para página inicial
-        */
-        app.get('/', function (req, res) {
-            res.send('Hello World')
-        })
-          
 
         app.get("/clientes", async (req, res) => {
             try {
