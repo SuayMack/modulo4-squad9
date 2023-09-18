@@ -4,7 +4,6 @@ import mongoose from "mongoose"
  */
 
 const Contratos = mongoose.model('contrato', {
-    Pedido: String,
     descricao: String,
     inicio: Date,
     fim: Date
