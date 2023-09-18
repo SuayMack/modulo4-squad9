@@ -1,66 +1,27 @@
-import PedidosRepository from "../Repository/PedidosRepository.js";  
+import PedidosRepository from "../Repository/PedidosRepository.js";
 
-class ValidacoesPedido {
-    static validaNome(nome) {
-        if (nome.length >= 3) {
+class ValidacoesPedidos {
+
+    static validaDescricao(descricao) {
+
+        if (descricao.length >= 20 && descricao.length <= 350) {
             return true
         }
         else {
-            throw new Error("Nome inválido, o nome deve ter no mínimo 3 caracteres")
+            throw new Error("A descrição deve conter no mínimo 20 e no máximo 350 caracteres")
         }
+
     }
 
-    static validaTelefone(telefone) {
-        const tel = parseInt(telefone)
-        if (tel != telefone || telefone.length < 10 || telefone.length > 12) {
-            throw new Error("Telefone inválido, favor rever a requisição.")
-        }
-        return true
-    }
-
-    static async validaEmail(email) {
-        const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i
-        if (regex.test(email)) {
-            const VerificaCliente = await ClientesRepository.buscarClientePorEmail(email)
-            if (VerificaCliente) {
-                throw new Error("Email já cadastrado.")
-            } else {
-                return true
-            }
-        }
-        else {
-            throw new Error("Email inválido, favor rever a requisição.")
-        }
-    }
-
-    static validaCNPJ(cnpj) {
-        if (cnpj.length != 14) {
-            throw new Error("CNPJ inválido, favor rever a requisição.")
-        }
-        return true
-    }
-
-    static validaEndereco(endereco) {
-        if (endereco.length >= 5) {
-            return true
-        }
-        else {
-            throw new Error("Endereco inválido, deve ter no mínimo 5 caracteres")
-        }
-    }
-
-    static async validaCliente(nome, telefone, email, cnpj, endereco) {
+    static async validapedido(descricao) {
         try {
-            ValidacoesCliente.validaNome(nome)
-            ValidacoesCliente.validaTelefone(telefone)
-            await ValidacoesCliente.validaEmail(email)
-            ValidacoesCliente.validaCNPJ(cnpj)
-            ValidacoesCliente.validaEndereco(endereco)
+            ValidacoesPedidos.validaDescricao(descricao)
+
         } catch (error) {
             throw error
         }
     }
 }
 
-export default ValidacoesPedido
+export default ValidacoesPedidos
 
