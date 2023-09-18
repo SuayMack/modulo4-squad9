@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 
-const Feedbacks = mongoose.model('Feedbacks', {    
-  id_pedido : String,
+const Feedbacks = mongoose.model('Feedbacks', {
   descricao : String
 })
 
