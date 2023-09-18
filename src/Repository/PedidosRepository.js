@@ -17,8 +17,8 @@ class PedidosRepository {
         return response
     }
 
-    static async buscarPedidoPorEmail(email){
-        const response = await RepositoryGeneral.buscarPorChave(Pedidos, 'email', email)
+    static async buscarPedidoPorCliente(cliente){
+        const response = await RepositoryGeneral.buscarPedidoPorCliente(Pedidos, cliente)
         return response
     }
 
@@ -31,6 +31,12 @@ class PedidosRepository {
         const response = await RepositoryGeneral.deletarPorId(Pedidos, id)
         return response
     }
+
+    static async deletaPedidoPorCliente(cliente){
+        const response = await RepositoryGeneral.deletaPedidoPorCliente(Pedidos, cliente)
+        return response
+    }
+
 }
 
 export default PedidosRepository
