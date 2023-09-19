@@ -1,5 +1,3 @@
-import PedidosRepository from "../Repository/PedidosRepository.js";
-
 class ValidacoesPedidos {
 
     static validaCliente(cliente) {
@@ -33,7 +31,7 @@ class ValidacoesPedidos {
 
     }
 
-    static async validapedido(descricao) {
+    static async validaPedido(descricao) {
         try {
             ValidacoesPedidos.validaCliente(cliente)
             ValidacoesPedidos.validaProduto(produto)
