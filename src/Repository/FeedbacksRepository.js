@@ -17,6 +17,16 @@ class FeedbacksRepository {
         return response
     }
 
+    static async buscarFeedbackPorCliente(cliente){
+        const response = await RepositoryGeneral.buscarFeedbackPorCliente(Feedbacks, cliente)
+        return response
+    }
+
+    static async buscarFeedbackPorProduto(produto){
+        const response = await RepositoryGeneral.buscarFeedbackPorProduto(Feedbacks, produto)
+        return response
+    }
+
     static async atualizaFeedbackPorId(id, feedback){
         const response = await RepositoryGeneral.atualizaPorId(Feedbacks, id, feedback)
         return response
@@ -24,6 +34,16 @@ class FeedbacksRepository {
 
     static async deletaFeedbackPorId(id){
         const response = await RepositoryGeneral.deletarPorId(Feedbacks, id)
+        return response
+    }
+
+    static async deletaFeedbackPorCliente(cliente){
+        const response = await RepositoryGeneral.deletaFeedbackPorCliente(Feedbacks, cliente)
+        return response
+    }
+    
+    static async deletaFeedbackPorProduto(produto){
+        const response = await RepositoryGeneral.deletaFeedbackPorProduto(Feedbacks, produto)
         return response
     }
 }
