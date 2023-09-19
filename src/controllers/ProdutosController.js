@@ -29,7 +29,7 @@ class ProdutosController {
 
         app.post("/produtos", async (req, res) => {
             try {
-                await ValidacoesProdutos.validaProduto(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
+                await ValidacoesProdutos.validaProduto(req.body.nome, req.body.descricao)
 
                 const produto = req.body
 
@@ -39,12 +39,9 @@ class ProdutosController {
 
             } catch (erro) {
 
-                if (erro.message == "Email já cadastrado.") {
-                    res.status(406).json({ message: erro.message })
-                }
-                else {
-                    res.status(400).json({ message: erro.message })
-                }
+               
+                res.status(400).json({ message: erro.message })
+            
             }
         })
 
@@ -81,7 +78,7 @@ class ProdutosController {
 
                 delete produto._id
 
-                ValidacoesProdutos.validaProduto(produto.nome, produto.telefone, produto.email, produto.cnpj, cliente.endereco)
+                ValidacoesProdutos.validaProduto(produto.nome, produto.descricao)
                 const resposta = await ProdutosRepository.atualizaProdutoPorId(id, produto)
 
                 res.status(200).json(resposta)

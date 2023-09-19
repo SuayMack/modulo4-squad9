@@ -42,7 +42,7 @@ class PedidosController {
 
         app.post("/pedido", async (req, res) => {
             try {
-                await ValidacoesPedido.validaPedido(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
+                await ValidacoesPedido.validaPedido(req.body.cliente, req.body.produto, req.body.descricao)
 
                 const cliente = req.body
 
@@ -113,7 +113,7 @@ class PedidosController {
 
                 delete pedido._id
 
-                ValidacoesPedido.validaPedido(pedido.nome, pedido.telefone, pedido.email, pedido.cnpj, pedido.endereco)
+                ValidacoesPedido.validaPedido(pedido.cliente, pedido.produto, pedido.descricao)
                 const resposta = await PedidosRepository.atualizaPedidoPorId(id, pedido)
 
                 res.status(200).json(resposta)

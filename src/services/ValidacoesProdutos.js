@@ -1,8 +1,8 @@
 class ValidacoesProdutos {
-  static validaNome(nome) {
-    const nomes = ["Software", "APP", "Site"]
+  
 
-    if (nome.includes(nomes)) {
+  static validaNome(nome) {
+    if (nome === "Software" || nome === "APP" || nome ===  "Site") {
       return true
     }
     else {
