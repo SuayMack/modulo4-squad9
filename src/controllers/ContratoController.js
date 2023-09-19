@@ -1,5 +1,5 @@
 import ContratosRepository from "../Repository/ContratoRepository.js";
-import ValidacoesContrato from "../services/ValidacoesContrato.js";
+import ValidacoesContratos from "../services/ValidacoesContratos.js";
 
 class ContratoController {
 
@@ -41,7 +41,7 @@ class ContratoController {
 
         app.post("/contratos", async (req, res) => {
             try {
-                await ValidacoesContrato.validaContrato(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
+                await ValidacoesContratos.validaContrato(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
 
                 const contrato = req.body
 
@@ -112,7 +112,7 @@ class ContratoController {
 
                 delete contrato._id
 
-                ValidacoesContrato.validaContrato(contrato.nome, cliente.telefone, cliente.email, cliente.cnpj, cliente.endereco)
+                ValidacoesContratos.validaContrato(contrato.nome, cliente.telefone, cliente.email, cliente.cnpj, cliente.endereco)
                 const resposta = await ContratosRepository.atualizaClientePorId(id, contrato)
 
                 res.status(200).json(resposta)
