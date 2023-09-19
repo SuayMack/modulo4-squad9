@@ -1,4 +1,3 @@
-import { Double } from "bson"
 import mongoose from "mongoose"
 
 const Pedidos = mongoose.model('Pedido', {
