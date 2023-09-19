@@ -3,20 +3,7 @@ import ValidacoesProdutos from "../services/ValidacoesProdutos.js"
 
 class ProdutosController {
 
-    /**
-     * Método de rotas da entidade usuários
-     * recebendo como argumento a instancia do Express
-     * @param {Express} app 
-     * usa-se o static para não precisar instanciar a classe
-     */
     static rotas(app) {
-        /**
-        * Rota para página inicial
-        */
-        app.get('/', function (req, res) {
-            res.send('Hello World')
-        })
-          
 
         app.get("/produtos", async (req, res) => {
             try {
@@ -51,12 +38,12 @@ class ProdutosController {
                 res.status(201).json(inserir)
 
             } catch (erro) {
-                
-                if(erro.message == "Email já cadastrado."){
-                    res.status(406).json({message: erro.message})
+
+                if (erro.message == "Email já cadastrado.") {
+                    res.status(406).json({ message: erro.message })
                 }
                 else {
-                    res.status(400).json({message: erro.message})
+                    res.status(400).json({ message: erro.message })
                 }
             }
         })
