@@ -3,25 +3,7 @@ import ValidacoesContrato from "../services/ValidacoesContrato.js";
 
 class ContratoController {
 
-    /**
-     * Método de rotas da entidade usuários
-     * recebendo como argumento a instancia do Express
-     * @param {Express} app 
-     * usa-se o static para não precisar instanciar a classe
-     * 
-     * req e res são dois objetos muito importantes que representam uma solicitação do cliente 
-     * (navegador, aplicativo móvel, etc.) para o servidor e a resposta que o servidor envia de 
-     * volta para o cliente, respectivamente.
-     */
     static rotas(app) {
-        /**
-        * Rota para página inicial
-        */
-        app.get('/', function (req, res) {
-            res.send('Hello World')
-        })
-          
-
         app.get("/contratos", async (req, res) => {
             try {
                 const contratos = await ContratosRepository.buscarTodosOsContratos()
@@ -41,6 +23,19 @@ class ContratoController {
                 res.status(200).json(contrato)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
+            }
+        })
+
+        app.get("/contratos/:cliente", async (req, res) => {
+            try {
+                const contrato = await ContratosRepository.buscarContratoPorCliente(req.params.cliente)
+
+                if (!contrato.cliente) {
+                    throw new Error("Contrato não encontrado para este cliente")
+                }
+                res.status(200).json(contrato)
+            } catch (erro) {
+                res.status(404).json({ message: erro.message, cliente: req.params.cliente })
             }
         })
 
@@ -81,6 +76,25 @@ class ContratoController {
 
             } catch (erro) {
                 res.status(404).json({ Erro: erro.message, id })
+            }
+        })
+        
+        app.delete("/contrato/:cliente", async (req, res) => {
+            const cliente = req.params.cliente
+            try {
+
+                const contrato = await ContratosRepository.buscarContratoPorCliente(cliente)
+
+                if (!contrato.cliente) {
+                    throw new Erro("Contrato não encontrado")
+                }
+
+                const resposta = await ContratosRepository.deletaContratoPorCliente(cliente)
+
+                res.status(200).json(resposta)
+
+            } catch (erro) {
+                res.status(404).json({ Erro: erro.message, cliente })
             }
         })
 

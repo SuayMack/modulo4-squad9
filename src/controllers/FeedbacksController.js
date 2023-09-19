@@ -4,20 +4,7 @@ import ValidacoesFeedbacks from "../services/ValidacoesFeedbacks.js"
 
 class FeedbacksController {
 
-    /**
-     * Método de rotas da entidade usuários
-     * recebendo como argumento a instancia do Express
-     * @param {Express} app 
-     * usa-se o static para não precisar instanciar a classe
-     */
     static rotas(app) {
-        /**
-        * Rota para página inicial
-        */
-        app.get('/', function (req, res) {
-            res.send('Hello World')
-        })
-
         app.get("/feedbacks", async (req, res) => {
             try {
                 const feedbacks = await FeedbacksRepository.buscarTodosOsFeedbacks()
@@ -37,6 +24,32 @@ class FeedbacksController {
                 res.status(200).json(feedback)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
+            }
+        })
+
+        app.get("/feedbacks/:cliente", async (req, res) => {
+            try {
+                const feedback = await FeedbacksRepository.buscarFeedbackPorCliente(req.params.cliente)
+
+                if (!feedback.cliente) {
+                    throw new Error("Feedback não encontrado para esse cliente")
+                }
+                res.status(200).json(feedback)
+            } catch (erro) {
+                res.status(404).json({ message: erro.message, cliente: req.params.cliente })
+            }
+        })
+
+        app.get("/feedbacks/:produto", async (req, res) => {
+            try {
+                const feedback = await FeedbacksRepository.buscarFeedbackPorProduto(req.params.produto)
+
+                if (!feedback.produto) {
+                    throw new Error("Feedback não encontrado para esse produto")
+                }
+                res.status(200).json(feedback)
+            } catch (erro) {
+                res.status(404).json({ message: erro.message, produto: req.params.produto })
             }
         })
 
@@ -77,6 +90,44 @@ class FeedbacksController {
 
             } catch (erro) {
                 res.status(404).json({ Erro: erro.message, id })
+            }
+        })
+
+        app.delete("/feedbacks/:cliente", async (req, res) => {
+            const cliente = req.params.cliente
+            try {
+
+                const feedback = await FeedbacksRepository.buscarFeedbackPorCliente(cliente)
+
+                if (!feedback.cliente) {
+                    throw new Erro("Feedback não encontrado")
+                }
+
+                const resposta = await FeedbacksRepository.deletaFeedbackPorcliente(cliente)
+
+                res.status(200).json(resposta)
+
+            } catch (erro) {
+                res.status(404).json({ Erro: erro.message, cliente })
+            }
+        })
+
+        app.delete("/feedbacks/:produto", async (req, res) => {
+            const produto = req.params.produto
+            try {
+
+                const feedback = await FeedbacksRepository.buscarFeedbackPorProduto(produto)
+
+                if (!feedback.produto) {
+                    throw new Erro("Feedback não encontrado")
+                }
+
+                const resposta = await FeedbacksRepository.deletaFeedbackPorproduto(produto)
+
+                res.status(200).json(resposta)
+
+            } catch (erro) {
+                res.status(404).json({ Erro: erro.message, produto })
             }
         })
 

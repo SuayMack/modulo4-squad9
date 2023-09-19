@@ -4,25 +4,7 @@ import ValidacoesPedido from "../services/ValidacoesPedidos.js";
 
 class PedidosController {
 
-    /**
-     * Método de rotas da entidade usuários
-     * recebendo como argumento a instancia do Express
-     * @param {Express} app 
-     * usa-se o static para não precisar instanciar a classe
-     * 
-     * req e res são dois objetos muito importantes que representam uma solicitação do cliente 
-     * (navegador, aplicativo móvel, etc.) para o servidor e a resposta que o servidor envia de 
-     * volta para o cliente, respectivamente.
-     */
     static rotas(app) {
-        /**
-        * Rota para página inicial
-        */
-        app.get('/', function (req, res) {
-            res.send('Hello World')
-        })
-          
-
         app.get("/pedidos", async (req, res) => {
             try {
                 const pedidos = await PedidosRepository.buscarTodosOsPedidos()
@@ -42,6 +24,19 @@ class PedidosController {
                 res.status(200).json(pedido)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
+            }
+        })
+        
+        app.get("/pedidos/:cliente", async (req, res) => {
+            try {
+                const pedido = await PedidosRepository.buscarPedidoPorCliente(req.params.cliente)
+
+                if (!pedido.cliente) {
+                    throw new Error("pedido não encontrado para este cliente")
+                }
+                res.status(200).json(pedido)
+            } catch (erro) {
+                res.status(404).json({ message: erro.message, cliente: req.params.cliente })
             }
         })
 
@@ -82,6 +77,25 @@ class PedidosController {
 
             } catch (erro) {
                 res.status(404).json({ Erro: erro.message, id })
+            }
+        })
+
+        app.delete("/pedidos/:cliente", async (req, res) => {
+            const cliente = req.params.cliente
+            try {
+
+                const pedido = await PedidosRepository.deletaPedidoPorCliente(cliente)
+
+                if (!pedido.cliente) {
+                    throw new Erro("Pedido não encontrado")
+                }
+
+                const resposta = await PedidosRepository.deletaPedidoPorCliente(cliente)
+
+                res.status(200).json(resposta)
+
+            } catch (erro) {
+                res.status(404).json({ Erro: erro.message, cliente })
             }
         })
 
