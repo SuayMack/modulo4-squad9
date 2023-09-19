@@ -17,8 +17,8 @@ class ContratosRepository {
         return response
     }
 
-    static async buscarClientePorEmail(email){
-        const response = await RepositoryGeneral.buscarPorChave(Clientes, 'email', email)
+    static async buscarContratoPorCliente(cliente){
+        const response = await RepositoryGeneral.buscarContratoPorCliente(Contratos, cliente)
         return response
     }
 
@@ -29,6 +29,11 @@ class ContratosRepository {
 
     static async deletaContratoPorId(id){
         const response = await RepositoryGeneral.deletarPorId(Contratos, id)
+        return response
+    }
+
+    static async deletaContratoPorCliente(cliente){
+        const response = await RepositoryGeneral.deletaContratoPorCliente(Contratos, cliente)
         return response
     }
 }
