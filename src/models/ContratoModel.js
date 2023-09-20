@@ -1,9 +1,7 @@
 import mongoose from "mongoose"
-/**
- * Objeto modelo para usuários
- */
 
 const Contratos = mongoose.model('contrato', {
+    pedido: String,
     descricao: String,
     inicio: Date,
     fim: Date
