@@ -40,11 +40,11 @@ class PedidosController {
             }
         })
 
-        app.post("/pedido", async (req, res) => {
+        app.post("/pedidos", async (req, res) => {
             try {
                 await ValidacoesPedido.validaPedido(req.body.cliente, req.body.produto, req.body.descricao)
 
-                const cliente = req.body
+                const pedido = req.body
 
                 const inserir = await PedidosRepository.criarPedido(pedido)
 
