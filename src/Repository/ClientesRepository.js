@@ -17,6 +17,11 @@ class ClientesRepository {
         return response
     }
 
+    static async buscarClientePorEmail(email){
+        const response = await RepositoryGeneral.buscarPorChave(Clientes, 'email', email)
+        return response
+    }
+    
     static async atualizaClientePorId(id, cliente){
         const response = await RepositoryGeneral.atualizaPorId(Clientes, id, cliente)
         return response
