@@ -1,6 +1,15 @@
-import ContratosRepository from "../Repository/ContratoRepository.js";
-
 class ValidacoesContratos {
+
+    static validaPedido(pedido) {
+
+        if (pedido.length >= 5) {
+            return true
+        }
+        else {
+            throw new Error("O Pedido deve conter no mínimo 5 caracteres")
+        }
+    }
+
 
     static validaDescricao(descricao) {
 
@@ -26,8 +35,9 @@ class ValidacoesContratos {
         return true;
     }
 
-    static async validaContrato(descricao, dt_inicio, dt_fim) {
+    static async validaContrato(pedido,descricao, dt_inicio, dt_fim) {
         try {
+            ValidacoesContratos.validaPedido(pedido)
             ValidacoesContratos.validaDescricao(descricao)
             ValidacoesContratos.validaCamposData(dt_inicio, dt_fim)
             
