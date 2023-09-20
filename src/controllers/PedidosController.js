@@ -5,6 +5,28 @@ import ValidacoesPedido from "../services/ValidacoesPedidos.js";
 class PedidosController {
 
     static rotas(app) {
+
+        app.post("/pedidos", async (req, res) => {
+            try {
+                await ValidacoesPedido.validaPedido(req.body.cliente, req.body.produto, req.body.descricao)
+
+                const pedido = req.body
+
+                const inserir = await PedidosRepository.criarPedido(pedido)
+
+                res.status(201).json(inserir)
+
+            } catch (erro) {
+
+                if (erro.message == "Email já cadastrado.") {
+                    res.status(406).json({ message: erro.message })
+                }
+                else {
+                    res.status(400).json({ message: erro.message })
+                }
+            }
+        })
+
         app.get("/pedidos", async (req, res) => {
             try {
                 const pedidos = await PedidosRepository.buscarTodosOsPedidos()
@@ -24,27 +46,6 @@ class PedidosController {
                 res.status(200).json(pedido)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
-            }
-        })
-
-        app.post("/pedidos", async (req, res) => {
-            try {
-                await ValidacoesPedido.validaPedido(req.body.cliente, req.body.produto, req.body.descricao)
-
-                const pedido = req.body
-
-                const inserir = await PedidosRepository.criarPedido(pedido)
-
-                res.status(201).json(inserir)
-
-            } catch (erro) {
-                
-                if(erro.message == "Email já cadastrado."){
-                    res.status(406).json({message: erro.message})
-                }
-                else {
-                    res.status(400).json({message: erro.message})
-                }
             }
         })
 

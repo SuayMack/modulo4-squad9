@@ -5,6 +5,24 @@ import ValidacoesFeedbacks from "../services/ValidacoesFeedbacks.js"
 class FeedbacksController {
 
     static rotas(app) {
+
+        app.post("/feedbacks", async (req, res) => {
+            try {
+                ValidacoesFeedbacks.validaFeedbacks(req.body.cliente, req.body.produto, req.body.descricao)
+
+                const feedback = req.body
+
+                const inserir = await FeedbacksRepository.criarFeedback(feedback)
+
+                res.status(201).json(inserir)
+
+            } catch (erro) {
+
+                res.status(400).json({ message: erro.message })
+
+            }
+        })
+        
         app.get("/feedbacks", async (req, res) => {
             try {
                 const feedbacks = await FeedbacksRepository.buscarTodosOsFeedbacks()
@@ -24,24 +42,6 @@ class FeedbacksController {
                 res.status(200).json(feedback)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
-            }
-        })
-
-
-        app.post("/feedbacks", async (req, res) => {
-            try {
-                ValidacoesFeedbacks.validaFeedbacks(req.body.cliente, req.body.produto, req.body.descricao)
-
-                const feedback = req.body
-
-                const inserir = await FeedbacksRepository.criarFeedback(feedback)
-
-                res.status(201).json(inserir)
-
-            } catch (erro) {
-
-                res.status(400).json({ message: erro.message })
-
             }
         })
 
