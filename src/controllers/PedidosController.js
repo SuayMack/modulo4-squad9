@@ -26,19 +26,6 @@ class PedidosController {
                 res.status(404).json({ message: erro.message, id: req.params.id })
             }
         })
-        
-        app.get("/pedidos/:cliente", async (req, res) => {
-            try {
-                const pedido = await PedidosRepository.buscarPedidoPorCliente(req.params.cliente)
-
-                if (!pedido.cliente) {
-                    throw new Error("pedido não encontrado para este cliente")
-                }
-                res.status(200).json(pedido)
-            } catch (erro) {
-                res.status(404).json({ message: erro.message, cliente: req.params.cliente })
-            }
-        })
 
         app.post("/pedidos", async (req, res) => {
             try {
@@ -77,25 +64,6 @@ class PedidosController {
 
             } catch (erro) {
                 res.status(404).json({ Erro: erro.message, id })
-            }
-        })
-
-        app.delete("/pedidos/:cliente", async (req, res) => {
-            const cliente = req.params.cliente
-            try {
-
-                const pedido = await PedidosRepository.deletaPedidoPorCliente(cliente)
-
-                if (!pedido.cliente) {
-                    throw new Erro("Pedido não encontrado")
-                }
-
-                const resposta = await PedidosRepository.deletaPedidoPorCliente(cliente)
-
-                res.status(200).json(resposta)
-
-            } catch (erro) {
-                res.status(404).json({ Erro: erro.message, cliente })
             }
         })
 

@@ -26,19 +26,6 @@ class ContratoController {
             }
         })
 
-        app.get("/contratos/:cliente", async (req, res) => {
-            try {
-                const contrato = await ContratosRepository.buscarContratoPorCliente(req.params.cliente)
-
-                if (!contrato.cliente) {
-                    throw new Error("Contrato não encontrado para este cliente")
-                }
-                res.status(200).json(contrato)
-            } catch (erro) {
-                res.status(404).json({ message: erro.message, cliente: req.params.cliente })
-            }
-        })
-
         app.post("/contratos", async (req, res) => {
             try {
                 await ValidacoesContratos.validaContrato(req.body.pedido, req.body.descricao, req.body.inicio, req.body.fim)
@@ -76,25 +63,6 @@ class ContratoController {
 
             } catch (erro) {
                 res.status(404).json({ Erro: erro.message, id })
-            }
-        })
-        
-        app.delete("/contrato/:cliente", async (req, res) => {
-            const cliente = req.params.cliente
-            try {
-
-                const contrato = await ContratosRepository.buscarContratoPorCliente(cliente)
-
-                if (!contrato.cliente) {
-                    throw new Erro("Contrato não encontrado")
-                }
-
-                const resposta = await ContratosRepository.deletaContratoPorCliente(cliente)
-
-                res.status(200).json(resposta)
-
-            } catch (erro) {
-                res.status(404).json({ Erro: erro.message, cliente })
             }
         })
 
