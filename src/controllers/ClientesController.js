@@ -15,28 +15,6 @@ class ClientesController {
      */
     static rotas(app) {
 
-        app.get("/clientes", async (req, res) => {
-            try {
-                const clientes = await ClientesRepository.buscarTodosOsClientes()
-                res.status(200).json(clientes)
-            } catch (erro) {
-                res.status(404).json(erro.message)
-            }
-        })
-
-        app.get("/clientes/:id", async (req, res) => {
-            try {
-                const cliente = await ClientesRepository.buscarCientePorId(req.params.id)
-
-                if (!cliente._id) {
-                    throw new Error("Cliente não encontrado para esse id")
-                }
-                res.status(200).json(cliente)
-            } catch (erro) {
-                res.status(404).json({ message: erro.message, id: req.params.id })
-            }
-        })
-
         app.post("/clientes", async (req, res) => {
             try {
                 await ValidacoesCLientes.validaCliente(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
@@ -55,6 +33,28 @@ class ClientesController {
                 else {
                     res.status(400).json({ message: erro.message })
                 }
+            }
+        })
+
+        app.get("/clientes", async (req, res) => {
+            try {
+                const clientes = await ClientesRepository.buscarTodosOsClientes()
+                res.status(200).json(clientes)
+            } catch (erro) {
+                res.status(404).json(erro.message)
+            }
+        })
+
+        app.get("/clientes/:id", async (req, res) => {
+            try {
+                const cliente = await ClientesRepository.buscarClientePorId(req.params.id)
+
+                if (!cliente._id) {
+                    throw new Error("Cliente não encontrado para esse id")
+                }
+                res.status(200).json(cliente)
+            } catch (erro) {
+                res.status(404).json({ message: erro.message, id: req.params.id })
             }
         })
 

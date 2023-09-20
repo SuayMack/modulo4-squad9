@@ -5,6 +5,24 @@ class ProdutosController {
 
     static rotas(app) {
 
+        app.post("/produtos", async (req, res) => {
+            try {
+                await ValidacoesProdutos.validaProduto(req.body.nome, req.body.descricao)
+
+                const produto = req.body
+
+                const inserir = await ProdutosRepository.criarProduto(produto)
+
+                res.status(201).json(inserir)
+
+            } catch (erro) {
+
+
+                res.status(400).json({ message: erro.message })
+
+            }
+        })
+
         app.get("/produtos", async (req, res) => {
             try {
                 const produtos = await ProdutosRepository.buscarTodosOsProdutos()
@@ -24,24 +42,6 @@ class ProdutosController {
                 res.status(200).json(produto)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
-            }
-        })
-
-        app.post("/produtos", async (req, res) => {
-            try {
-                await ValidacoesProdutos.validaProduto(req.body.nome, req.body.descricao)
-
-                const produto = req.body
-
-                const inserir = await ProdutosRepository.criarProduto(produto)
-
-                res.status(201).json(inserir)
-
-            } catch (erro) {
-
-               
-                res.status(400).json({ message: erro.message })
-            
             }
         })
 

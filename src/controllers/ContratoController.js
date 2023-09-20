@@ -4,6 +4,28 @@ import ValidacoesContratos from "../services/ValidacoesContratos.js";
 class ContratoController {
 
     static rotas(app) {
+
+        app.post("/contratos", async (req, res) => {
+            try {
+                await ValidacoesContratos.validaContrato(req.body.pedido, req.body.descricao, req.body.inicio, req.body.fim)
+
+                const contrato = req.body
+
+                const inserir = await ContratosRepository.criarContrato(contrato)
+
+                res.status(201).json(inserir)
+
+            } catch (erro) {
+
+                if (erro.message == "Email já cadastrado.") {
+                    res.status(406).json({ message: erro.message })
+                }
+                else {
+                    res.status(400).json({ message: erro.message })
+                }
+            }
+        })
+
         app.get("/contratos", async (req, res) => {
             try {
                 const contratos = await ContratosRepository.buscarTodosOsContratos()
@@ -23,27 +45,6 @@ class ContratoController {
                 res.status(200).json(contrato)
             } catch (erro) {
                 res.status(404).json({ message: erro.message, id: req.params.id })
-            }
-        })
-
-        app.post("/contratos", async (req, res) => {
-            try {
-                await ValidacoesContratos.validaContrato(req.body.pedido, req.body.descricao, req.body.inicio, req.body.fim)
-
-                const contrato = req.body
-
-                const inserir = await ContratosRepository.criarContrato(contrato)
-
-                res.status(201).json(inserir)
-
-            } catch (erro) {
-                
-                if(erro.message == "Email já cadastrado."){
-                    res.status(406).json({message: erro.message})
-                }
-                else {
-                    res.status(400).json({message: erro.message})
-                }
             }
         })
 
