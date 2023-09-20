@@ -33,6 +33,16 @@ class ValidacoesCliente {
         }
     }
 
+    static async validaEmailPatch(emailPatch) {
+        const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i
+        if (regex.test(emailPatch)) {
+            return true
+        }
+        else {
+            throw new Error("Email inválido, favor rever a requisição.")
+        }
+    }
+
     static validaCNPJ(cnpj) {
         if (cnpj.length != 14) {
             throw new Error("CNPJ inválido, favor rever a requisição.")
@@ -49,11 +59,24 @@ class ValidacoesCliente {
         }
     }
 
+
+
     static async validaCliente(nome, telefone, email, cnpj, endereco) {
         try {
             ValidacoesCliente.validaNome(nome)
             ValidacoesCliente.validaTelefone(telefone)
             await ValidacoesCliente.validaEmail(email)
+            ValidacoesCliente.validaCNPJ(cnpj)
+            ValidacoesCliente.validaEndereco(endereco)
+        } catch (error) {
+            throw error
+        }
+    }
+    static async validaAtualizacaoCliente(nome, telefone, emailPatch, cnpj, endereco) {
+        try {
+            ValidacoesCliente.validaNome(nome)
+            ValidacoesCliente.validaTelefone(telefone)
+            ValidacoesCliente.validaEmailPatch(emailPatch)
             ValidacoesCliente.validaCNPJ(cnpj)
             ValidacoesCliente.validaEndereco(endereco)
         } catch (error) {

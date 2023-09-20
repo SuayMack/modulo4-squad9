@@ -48,12 +48,12 @@ class ClientesController {
                 res.status(201).json(inserir)
 
             } catch (erro) {
-                
-                if(erro.message == "Email já cadastrado."){
-                    res.status(406).json({message: erro.message})
+
+                if (erro.message == "Email já cadastrado.") {
+                    res.status(406).json({ message: erro.message })
                 }
                 else {
-                    res.status(400).json({message: erro.message})
+                    res.status(400).json({ message: erro.message })
                 }
             }
         })
@@ -91,7 +91,7 @@ class ClientesController {
 
                 delete cliente._id
 
-                ValidacoesCLientes.validaCliente(cliente.nome, cliente.telefone, cliente.email, cliente.cnpj, cliente.endereco)
+                ValidacoesCLientes.validaAtualizacaoCliente(cliente.nome, cliente.telefone, cliente.email, cliente.cnpj, cliente.endereco)
                 const resposta = await ClientesRepository.atualizaClientePorId(id, cliente)
 
                 res.status(200).json(resposta)

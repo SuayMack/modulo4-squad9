@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
 
 const Feedbacks = mongoose.model('Feedbacks', {
-  descricao : String
+  cliente: String,
+  produto: String,
+  descricao: String,
 })
 
 export default Feedbacks

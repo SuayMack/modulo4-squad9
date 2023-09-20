@@ -55,7 +55,7 @@ class FeedbacksController {
 
         app.post("/feedbacks", async (req, res) => {
             try {
-                await ValidacoesFeedbacks.validaFeedback(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
+                ValidacoesFeedbacks.validaFeedbacks(req.body.cliente, req.body.produto, req.body.descricao)
 
                 const feedback = req.body
 
@@ -64,13 +64,9 @@ class FeedbacksController {
                 res.status(201).json(inserir)
 
             } catch (erro) {
-                
-                if(erro.message == "Email já cadastrado."){
-                    res.status(406).json({message: erro.message})
-                }
-                else {
-                    res.status(400).json({message: erro.message})
-                }
+
+                res.status(400).json({ message: erro.message })
+
             }
         })
 
@@ -145,7 +141,7 @@ class FeedbacksController {
 
                 delete feedback._id
 
-                ValidacoesFeedbacks.validaFeedback(feedback.nome, feedback.telefone, feedback.email, feedback.cnpj, cliente.endereco)
+                ValidacoesFeedbacks.validaFeedbacks(feedback.cliente, feedback.produto, feedback.descricao)
                 const resposta = await FeedbacksRepository.atualizaFeedbackPorId(id, feedback)
 
                 res.status(200).json(resposta)
