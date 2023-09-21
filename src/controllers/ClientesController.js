@@ -1,4 +1,5 @@
 import ClientesRepository from "../Repository/ClientesRepository.js"
+import ValidacoesClientes from "../services/ValidacoesClientes.js"
 import ValidacoesCLientes from "../services/ValidacoesClientes.js"
 
 class ClientesController {
@@ -79,19 +80,12 @@ class ClientesController {
 
         app.patch("/clientes/:id", async (req, res) => {
             const id = req.params.id
-            const body = Object.entries(req.body)
+            const entries = Object.entries(req.body)
             try {
                 const cliente = req.body
-
-                if (!cliente._id) {
-                    throw new Error("Cliente não encontrado para esse id")
-                }
-
-                body.forEach((elemento) => cliente[elemento[0]] = elemento[1])
-
-                delete cliente._id
-
-                ValidacoesCLientes.validaAtualizacaoCliente(cliente.nome, cliente.telefone, cliente.email, cliente.cnpj, cliente.endereco)
+                
+                await ValidacoesClientes.validaAtualizacaoCliente(entries)
+                
                 const resposta = await ClientesRepository.atualizaClientePorId(id, cliente)
 
                 res.status(200).json(resposta)
