@@ -5,7 +5,7 @@ class ContratoController {
 
     static rotas(app) {
 
-        app.post("/contratos", async (req, res) => {
+        app.post("/contrato", async (req, res) => {
             try {
                 await ValidacoesContratos.validaContrato(req.body.pedido, req.body.descricao, req.body.inicio, req.body.fim)
 
@@ -35,7 +35,7 @@ class ContratoController {
             }
         })
 
-        app.get("/contratos/:id", async (req, res) => {
+        app.get("/contrato/:id", async (req, res) => {
             try {
                 const contrato = await ContratosRepository.buscarContratoPorId(req.params.id)
 
@@ -67,7 +67,7 @@ class ContratoController {
             }
         })
 
-        app.patch("/contratos/:id", async (req, res) => {
+        app.patch("/contrato/:id", async (req, res) => {
             const id = req.params.id
             const body = Object.entries(req.body)
             try {
