@@ -631,11 +631,10 @@ npm start
 
 ## Referência
 
- - [NodeJS](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [MongoDB](https://github.com/matiassingers/awesome-readme)
- - [cors](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
- - [dotenv](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
- - [express](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
- - [mongoose](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
- - [Render](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [NodeJS](https://nodejs.org/en/docs)
+ - [MongoDB](https://www.mongodb.com/docs/manual/core/document/)
+ - [cors](https://docs.npmjs.com/)
+ - [express](https://expressjs.com/en/5x/api.html)
+ - [mongoose](https://mongoosejs.com/docs/api/document.html)
+ - [Render](https://renderdoc.org/)
 
