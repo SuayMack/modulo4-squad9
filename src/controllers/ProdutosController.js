@@ -5,7 +5,7 @@ class ProdutosController {
 
     static rotas(app) {
 
-        app.post("/produtos", async (req, res) => {
+        app.post("/produto", async (req, res) => {
             try {
                 await ValidacoesProdutos.validaProduto(req.body.nome, req.body.descricao)
 
@@ -32,7 +32,7 @@ class ProdutosController {
             }
         })
 
-        app.get("/produtos/:id", async (req, res) => {
+        app.get("/produto/:id", async (req, res) => {
             try {
                 const produto = await ProdutosRepository.buscarProdutoPorId(req.params.id)
 
@@ -45,7 +45,7 @@ class ProdutosController {
             }
         })
 
-        app.delete("/produtos/:id", async (req, res) => {
+        app.delete("/produto/:id", async (req, res) => {
             const id = req.params.id
             try {
 
@@ -64,7 +64,7 @@ class ProdutosController {
             }
         })
 
-        app.patch("/produtos/:id", async (req, res) => {
+        app.patch("/produto/:id", async (req, res) => {
             const id = req.params.id
             const body = Object.entries(req.body)
             try {

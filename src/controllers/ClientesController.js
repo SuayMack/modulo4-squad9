@@ -16,7 +16,7 @@ class ClientesController {
      */
     static rotas(app) {
 
-        app.post("/clientes", async (req, res) => {
+        app.post("/cliente", async (req, res) => {
             try {
                 await ValidacoesCLientes.validaCliente(req.body.nome, req.body.telefone, req.body.email, req.body.cnpj, req.body.endereco)
 
@@ -46,7 +46,7 @@ class ClientesController {
             }
         })
 
-        app.get("/clientes/:id", async (req, res) => {
+        app.get("/cliente/:id", async (req, res) => {
             try {
                 const cliente = await ClientesRepository.buscarClientePorId(req.params.id)
 
@@ -59,7 +59,7 @@ class ClientesController {
             }
         })
 
-        app.delete("/clientes/:id", async (req, res) => {
+        app.delete("/cliente/:id", async (req, res) => {
             const id = req.params.id
             try {
 
@@ -78,7 +78,7 @@ class ClientesController {
             }
         })
 
-        app.patch("/clientes/:id", async (req, res) => {
+        app.patch("/cliente/:id", async (req, res) => {
             const id = req.params.id
             const entries = Object.entries(req.body)
             try {

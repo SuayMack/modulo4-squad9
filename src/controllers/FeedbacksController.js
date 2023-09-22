@@ -6,7 +6,7 @@ class FeedbacksController {
 
     static rotas(app) {
 
-        app.post("/feedbacks", async (req, res) => {
+        app.post("/feedback", async (req, res) => {
             try {
                 ValidacoesFeedbacks.validaFeedbacks(req.body.cliente, req.body.produto, req.body.descricao)
 
@@ -32,7 +32,7 @@ class FeedbacksController {
             }
         })
 
-        app.get("/feedbacks/:id", async (req, res) => {
+        app.get("/feedback/:id", async (req, res) => {
             try {
                 const feedback = await FeedbacksRepository.buscarFeedbackPorId(req.params.id)
 
@@ -45,7 +45,7 @@ class FeedbacksController {
             }
         })
 
-        app.delete("/feedbacks/:id", async (req, res) => {
+        app.delete("/feedback/:id", async (req, res) => {
             const id = req.params.id
             try {
 
@@ -64,7 +64,7 @@ class FeedbacksController {
             }
         })
 
-        app.patch("/feedbacks/:id", async (req, res) => {
+        app.patch("/feedback/:id", async (req, res) => {
             const id = req.params.id
             const body = Object.entries(req.body)
             try {
