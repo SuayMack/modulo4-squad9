@@ -31,6 +31,28 @@ class ValidacoesPedidos {
 
   }
 
+  static validaPedidosPorChave(key, value) {
+    try {
+      switch (key) {
+        case "cliente":
+          this.validaCliente(value)
+          break;
+        case "produto":
+          this.validaProduto(value)
+          break;
+        case "descricao":
+          this.validaDescricao(value)
+          break;
+        default:
+          throw new Error("Favor rever a requisição.")
+      }
+    } catch (error) {
+
+      throw error
+    }
+    return true
+  }
+
   static async validaPedido(cliente, produto, descricao) {
     try {
       ValidacoesPedidos.validaCliente(cliente)
@@ -40,6 +62,21 @@ class ValidacoesPedidos {
     } catch (error) {
       throw error
     }
+  }
+
+  static validaAtualizacaoPedidos(body) {
+    try {
+
+      for (const entradas of body) {
+        this.validaPedidosPorChave(...entradas)
+      }
+
+    } catch (error) {
+
+      throw error
+
+    }
+
   }
 }
 

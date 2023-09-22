@@ -21,7 +21,7 @@ CLUSTER=local
 
 # Deploy
 
-Para fazer o deploy desse projeto rode
+Para fazer o deploy desse projeto vc deve ter o NodeJS instalado, nesse projeto utilizamos a versão:
 
 ***Clone o projeto***
 
@@ -639,3 +639,4 @@ npm start
  - [mongoose](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
  - [Render](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 
+Feito com 💜 por Squad 9

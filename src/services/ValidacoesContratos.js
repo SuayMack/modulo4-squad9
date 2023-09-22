@@ -9,8 +9,7 @@ class ValidacoesContratos {
             throw new Error("O Pedido deve conter no mínimo 5 caracteres")
         }
     }
-
-
+    
     static validaDescricao(descricao) {
 
         if (descricao.length >= 20 && descricao.length <= 350) {
@@ -35,6 +34,31 @@ class ValidacoesContratos {
         return true;
     }
 
+    static validaContratoPorChave(key, value) {
+        try {
+            switch (key) {
+                case "pedido":
+                    this.validaPedido(value)
+                    break;
+                case "descricao":
+                    this.validaDescricao(value)
+                    break;
+                case "inicio":
+                    this.validaCamposData(value)
+                    break;
+                case "fim":
+                    this.validaCamposData(value)
+                    break;
+                default:
+                    throw new Error("Favor rever a requisição.")
+            }
+        } catch (error) {
+
+            throw error
+        }
+        return true
+    }
+
     static async validaContrato(pedido,descricao, dt_inicio, dt_fim) {
         try {
             ValidacoesContratos.validaPedido(pedido)
@@ -44,6 +68,22 @@ class ValidacoesContratos {
         } catch (error) {
             throw error
         }
+    }
+
+    static async validaAtualizacaoContratos(body) {
+
+        try {
+
+          for (const entradas of body) {
+            this.validaContratoPorChave(...entradas)
+          }
+            
+        } catch (error) {
+            
+            throw error
+
+        }
+
     }
 }
 

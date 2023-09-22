@@ -17,9 +17,29 @@ class ValidacoesProdutos {
     }
     else {
       throw new Error("A descrição deve conter no mínimo 20 e no máximo 350 caracteres")
-    }
-    
+    }    
   }
+
+  
+  static validaProdutosPorChave(key, value) {
+    try {
+      switch (key) {
+        case "nome":
+          this.validaNome(value)
+          break;
+        case "produto":
+          this.validaDescricao(value)
+          break;
+        default:
+          throw new Error("Favor rever a requisição.")
+      }
+    } catch (error) {
+
+      throw error
+    }
+    return true
+  }
+
   static async validaProduto(nome, descricao) {
     try {
       ValidacoesProdutos.validaNome(nome)
@@ -27,6 +47,21 @@ class ValidacoesProdutos {
     } catch (error) {
       throw error
     }
+  }
+
+  static validaAtualizacaoProdutos(body) {
+    try {
+
+      for (const entradas of body) {
+        this.validaProdutosPorChave(...entradas)
+      }
+
+    } catch (error) {
+
+      throw error
+
+    }
+
   }
 }
 

@@ -28,9 +28,31 @@ class ValidacoesFeedbacks {
         }
     }
 
-    static validaFeedbacks(cliente, produto,descricao) {
+    static validaFeedbackPorChave(key, value) {
         try {
-            
+            switch (key) {
+                case "cliente":
+                    this.validaCliente(value)
+                    break;
+                case "produto":
+                    this.validaProduto(value)
+                    break;
+                case "descricao":
+                    this.validaDescricao(value)
+                    break;
+                default:
+                    throw new Error("Favor rever a requisição.")
+            }
+        } catch (error) {
+
+            throw error
+        }
+        return true
+    }
+    
+    static validaFeedbacks(cliente, produto, descricao) {
+        try {
+
             ValidacoesFeedbacks.validaCliente(cliente)
             ValidacoesFeedbacks.validaProduto(produto)
             ValidacoesFeedbacks.validaDescricao(descricao)
@@ -39,6 +61,21 @@ class ValidacoesFeedbacks {
         catch (error) {
             throw error
         }
+    }
+
+    static validaAtualizacaoFeedbacks(body) {
+        try {
+
+            for (const entradas of body) {
+                this.validaFeedbackPorChave(...entradas)
+            }
+
+        } catch (error) {
+
+            throw error
+
+        }
+
     }
 }
 export default ValidacoesFeedbacks;
