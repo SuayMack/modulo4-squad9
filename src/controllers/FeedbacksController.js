@@ -70,15 +70,8 @@ class FeedbacksController {
             try {
                 const feedback = req.body
 
-                if (!feedback._id) {
-                    throw new Error("Feedback não encontrado para esse id")
-                }
+                ValidacoesFeedbacks.validaAtualizacaoFeedbacks(body)
 
-                body.forEach((elemento) => feedback[elemento[0]] = elemento[1])
-
-                delete feedback._id
-
-                ValidacoesFeedbacks.validaFeedbacks(feedback.cliente, feedback.produto, feedback.descricao)
                 const resposta = await FeedbacksRepository.atualizaFeedbackPorId(id, feedback)
 
                 res.status(200).json(resposta)
