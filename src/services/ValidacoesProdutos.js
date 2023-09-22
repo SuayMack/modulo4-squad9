@@ -27,7 +27,7 @@ class ValidacoesProdutos {
         case "nome":
           this.validaNome(value)
           break;
-        case "produto":
+        case "descricao":
           this.validaDescricao(value)
           break;
         default:
