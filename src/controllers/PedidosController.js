@@ -72,18 +72,18 @@ class PedidosController {
             const id = req.params.id
             const body = Object.entries(req.body)
             try {
-                const pedido = req.body
+        
+                const pedido = await PedidosRepository.buscarPedidoPorId(id)
+
+                const pedidoAtualiza = req.body
 
                 if (!pedido._id) {
                     throw new Error("pedido não encontrado para esse id")
                 }
 
-                body.forEach((elemento) => pedido[elemento[0]] = elemento[1])
+                ValidacoesPedido.validaAtualizacaoPedidos(body)
 
-                delete pedido._id
-
-                ValidacoesPedido.validaPedido(pedido.cliente, pedido.produto, pedido.descricao)
-                const resposta = await PedidosRepository.atualizaPedidoPorId(id, pedido)
+                const resposta = await PedidosRepository.atualizaPedidoPorId(id, pedidoAtualiza)
 
                 res.status(200).json(resposta)
 

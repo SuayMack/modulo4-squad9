@@ -21,7 +21,7 @@ CLUSTER=local
 
 # Deploy
 
-Para fazer o deploy desse projeto rode
+Para fazer o deploy desse projeto vc deve ter o NodeJS instalado, nesse projeto utilizamos a versão:
 
 ***Clone o projeto***
 
@@ -640,3 +640,4 @@ npm start
  - [mongoose](https://mongoosejs.com/docs/api/document.html)
  - [Render](https://renderdoc.org/)
 
+Feito com 💜 por Squad 9

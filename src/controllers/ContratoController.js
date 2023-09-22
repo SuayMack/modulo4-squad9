@@ -73,15 +73,8 @@ class ContratoController {
             try {
                 const contrato = req.body
 
-                if (!contrato._id) {
-                    throw new Error("Contrato não encontrado para esse id")
-                }
+                await ValidacoesContratos.validaAtualizacaoContratos(body)
 
-                body.forEach((elemento) => contrato[elemento[0]] = elemento[1])
-
-                delete contrato._id
-
-                ValidacoesContratos.validaContrato(contrato.pedido, contrato.descricao, contrato.inicio, contrato.fim)
                 const resposta = await ContratosRepository.atualizaContratoPorId(id, contrato)
 
                 res.status(200).json(resposta)
