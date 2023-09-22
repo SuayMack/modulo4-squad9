@@ -212,7 +212,7 @@ npm start
 ```bash
 {
     "nome": "Site",
-    "descricao": "Um site é uma presença online composta por páginas da web interconectadas. Ele fornece informações, serviços ou conteúdo para visitantes da internet, permitindo a comunicação, interação e compartilhamento de informações em um ambiente digital."
+    "descricao": "Um site é uma presença online composta por páginas da web interconectadas. </br> Ele fornece informações, serviços ou conteúdo para visitantes da internet, permitindo a comunicação, interação e compartilhamento de informações em um ambiente digital."
     }
 ```      
 ###### Saída
