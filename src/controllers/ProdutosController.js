@@ -68,18 +68,15 @@ class ProdutosController {
             const id = req.params.id
             const body = Object.entries(req.body)
             try {
-                const produto = req.body
+                const produto = await ProdutosRepository.buscarProdutoPorId(id)
 
                 if (!produto._id) {
                     throw new Error("Produto não encontrado para esse id")
                 }
+                const produtoAtualiza = req.body
+                ValidacoesProdutos.validaAtualizacaoProdutos(body)
 
-                body.forEach((elemento) => produto[elemento[0]] = elemento[1])
-
-                delete produto._id
-
-                ValidacoesProdutos.validaProduto(produto.nome, produto.descricao)
-                const resposta = await ProdutosRepository.atualizaProdutoPorId(id, produto)
+                const resposta = await ProdutosRepository.atualizaProdutoPorId(id, produtoAtualiza)
 
                 res.status(200).json(resposta)
 
