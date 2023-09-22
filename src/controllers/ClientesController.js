@@ -31,9 +31,9 @@ class ClientesController {
                 if (erro.message == "Email já cadastrado.") {
                     res.status(406).json({ message: erro.message })
                 }
-                else {
-                    res.status(400).json({ message: erro.message })
-                }
+
+                res.status(400).json({ message: erro.message })
+
             }
         })
 
@@ -83,9 +83,9 @@ class ClientesController {
             const entries = Object.entries(req.body)
             try {
                 const cliente = req.body
-                
+
                 await ValidacoesClientes.validaAtualizacaoCliente(entries)
-                
+
                 const resposta = await ClientesRepository.atualizaClientePorId(id, cliente)
 
                 res.status(200).json(resposta)
