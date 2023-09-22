@@ -5,9 +5,9 @@ class ValidacoesClientes {
         if (nome.length >= 3) {
             return true
         }
-        else {
-            throw new Error("Nome inválido, o nome deve ter no mínimo 3 caracteres")
-        }
+
+        throw new Error("Nome inválido, o nome deve ter no mínimo 3 caracteres")
+
     }
 
     static validaTelefone(telefone) {
@@ -15,6 +15,7 @@ class ValidacoesClientes {
         if (tel != telefone || telefone.length < 10 || telefone.length > 12) {
             throw new Error("Telefone inválido, favor rever a requisição.")
         }
+
         return true
     }
 
@@ -24,13 +25,13 @@ class ValidacoesClientes {
             const VerificaCliente = await ClientesRepository.buscarClientePorEmail(email)
             if (VerificaCliente) {
                 throw new Error("Email já cadastrado.")
-            } else {
-                return true
             }
+            return true
+
         }
-        else {
-            throw new Error("Email inválido, favor rever a requisição.")
-        }
+
+        throw new Error("Email inválido, favor rever a requisição.")
+
     }
 
     static validaEmailPatch(emailPatch) {
@@ -38,9 +39,9 @@ class ValidacoesClientes {
         if (regex.test(emailPatch)) {
             return true
         }
-        else {
-            throw new Error("Email inválido, favor rever a requisição.")
-        }
+
+        throw new Error("Email inválido, favor rever a requisição.")
+
     }
 
     static validaCNPJ(cnpj) {
@@ -54,9 +55,9 @@ class ValidacoesClientes {
         if (endereco.length >= 5) {
             return true
         }
-        else {
-            throw new Error("Endereco inválido, deve ter no mínimo 5 caracteres")
-        }
+
+        throw new Error("Endereco inválido, deve ter no mínimo 5 caracteres")
+
     }
     static async validaClientePorChave(key, value) {
         try {
@@ -86,7 +87,6 @@ class ValidacoesClientes {
         return true
     }
 
-
     static async validaCliente(nome, telefone, email, cnpj, endereco) {
         try {
             ValidacoesClientes.validaNome(nome)
@@ -99,16 +99,17 @@ class ValidacoesClientes {
             throw error
         }
     }
+
     static async validaAtualizacaoCliente(body) {
 
         try {
 
-          for (const entradas of body) {
-            await this.validaClientePorChave(...entradas)
-          }
-            
+            for (const entradas of body) {
+                await this.validaClientePorChave(...entradas)
+            }
+
         } catch (error) {
-            
+
             throw error
 
         }
