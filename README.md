@@ -80,7 +80,7 @@ npm start
 ```bash
 {
   "nome": "Software",
-  "descricao": "02140028926",
+  "telefone": "02140028926",
   "email": "josh@josh.com.br",
   "cnpj": "111111/0001-01",
   "endereco": "rua xv, 123"
